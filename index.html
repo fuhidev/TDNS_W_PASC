@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>My App</title>
+  <!-- Path to Framework7 Library CSS-->
+
+  <link rel="stylesheet" href="css/framework7.ios.min.css">
+
+  <link rel="stylesheet" href="css/framework7.ios.colors.min.css">
+  <link rel='stylesheet' , href='https://js.arcgis.com/4.4/esri/css/main.css'>
+  <link rel='stylesheet' , href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'>
+  <!-- Path to your custom app styles-->
+  <link rel="stylesheet" href="dtg-map.css">
+  <link rel="stylesheet" href="css/framework7-icons.css">
+  
+
+</head>
+
+<body>
+  <div class="views">
+    <div class="view view-main">
+      <div class="navbar">
+        <div class="navbar-inner">
+          <!-- We have home navbar without left link-->
+          <div class="left">
+              <img src="\img\logo.png" class="lazy">
+          </div>
+          <div class="center sliding">Truyền dẫn nước sạch</div>
+        </div>
+      </div>
+      <div class="pages navbar-through toolbar-through">
+        <div data-page="index" class="page">
+          <div id="viewDiv">
+          </div>
+        </div>
+
+      </div>
+      <a href="#" class="floating-button ac-3" id="addSuCo">
+          <i class="icon f7-icons">add</i>
+      </a>
+      
+    </div>
+  </div>
+  <!-- Path to Framework7 Library JS-->
+  <script type="text/javascript" src="js/framework7.min.js">
+
+  </script>
+  <script>
+    var dojoConfig = {
+      paths: {
+        js: location.href.replace(/\/[^/]+$/, "") + "/js",
+      }
+    };
+  </script>
+  <script src='https://js.arcgis.com/4.4/'></script>
+  <script type="text/javascript" src='main.js'></script>
+
+</body>
+
+</html>
