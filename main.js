@@ -85,13 +85,13 @@ require([
             container: "viewDiv",
             zoom: 12, // Sets the zoom level based on level of detail (LOD)
             center: [106.6586167, 10.775109],
-            spatialReference: 102100
+            spatialReference: 102100,
 
         });
+        view.ui.remove('zoom');
         var url = mapconfigs.layers[0].url;
         var template = { // autocasts as new PopupTemplate()
             title: "Sự cố",
-            dockEnabled: true,
             content: [{
                 type: "fields",
                 fieldInfos: [{
@@ -114,6 +114,7 @@ require([
                 popupTemplate: template
             });
 
+
         map.add(layerSuco);
         var locateBtn = new Locate({
             viewModel: { // autocasts as new LocateViewModel()
@@ -126,6 +127,9 @@ require([
         view.ui.add(locateBtn, {
             position: "top-left"
         });
+        view.on('click',evt=>{
+            view.popup.dockEnabled = false;
+        })
         var layer = new GraphicsLayer();
         map.add(layer);
         var completeInfos = new CompleteInfos(view, layer, layerSuco);
