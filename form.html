@@ -33,16 +33,6 @@
                 </div>
               </div>
             </li>
-            <li>
-              <div class="item-content">
-                <div class="item-media"><i class="icon f7-icons">email</i></div>
-                <div class="item-inner">
-                  <div class="item-input">
-                    <input type="email" name='email' placeholder="Thư điện tử">
-                  </div>
-                </div>
-              </div>
-            </li>
             <!-- Date -->
             <li>
               <div class="item-content">
@@ -61,15 +51,22 @@
         <div class="content-block-title">Thông tin phản ánh </div>
         <div class="list-block">
           <ul>
-            <!-- Text inputs -->
+            <li>
+              <div class="item-content">
+                <div class="item-media"><i class="fa fa-map-marker"></i></div>
+                <div class="item-inner">
+                  <div class="item-input">
+                    <input type="text" name='diachi' placeholder="Địa chỉ">
+                  </div>
+                </div>
+              </div>
+            </li>
             <li>
               <div class="item-content">
                 <div class="item-media"><i class="icon f7-icons">bars</i></div>
                 <div class="item-inner">
                   <div class="item-input">
-                    <select name="loaisuco"> 
-                        <option>1</option>
-                        <option>2</option>
+                    <select name="loaisuco" id="loaisuco"> 
                     </select>
                   </div>
                 </div>
@@ -80,7 +77,7 @@
                 <div class="item-media"><i class="icon f7-icons">compose</i></div>
                 <div class="item-inner">
                   <div class="item-input">
-                    <textarea name="mota" placeholder="Mô tả phản ánh"></textarea>
+                    <textarea name="nguyennhan" placeholder="Nguyên nhân"></textarea>
                   </div>
                   <!-- <div class="item-input">
                     <input type="text" name="mota" placeholder="Mô tả phản ánh">

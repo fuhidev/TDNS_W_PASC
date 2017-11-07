@@ -38,7 +38,7 @@ define([
         layers: [{
             title: 'Sự cố',
             id: "SuCo",
-            url: "https://ditagis.com:6443/arcgis/rest/services/HoChiMinh/TDNS/FeatureServer/0",
+            url: "http://112.78.4.175:6080/arcgis/rest/services/ChuyenDeGISTruyenDan/FeatureServer/0",
             permissions: [{
                 role: 1,//sở thông tin truyền thông
                 edit: true,

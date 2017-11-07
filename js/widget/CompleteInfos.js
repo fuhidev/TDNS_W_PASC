@@ -12,7 +12,7 @@ define([
     SimpleMarkerSymbol,
     esriRequest, Location) {
         return class {
-            constructor(view, graphicsLayer,layerSuco) {
+            constructor(view, graphicsLayer, layerSuco) {
                 this.view = view;
                 this.graphicsLayer = graphicsLayer;
                 var form;
@@ -24,35 +24,39 @@ define([
                     addSuco.style.display = 'inline-grid';
                 })
                 myApp.onPageInit('*', () => {
+                    var domainLoaiSuCo = this.layerSuco.fields.find(f=>{
+                        return f.name == 'LOAISUCO'
+                    }).domain.codedValues;
+                    var select = document.getElementById('loaisuco');
+                    for (const domain of domainLoaiSuCo) {
+                        var option = domConstruct.create('option', {
+                            value: domain.code,
+                            innerHTML: domain.name
+                        });
+                        select.appendChild(option);
+                    }
+                    
+                   
                     addSuco.style.display = 'none';
                     // var input = document.getElementById('fileInput');
                     var div = document.getElementById('form-attachment');
                     div.appendChild(this.form);
+
                     $$('.form-to-data').on('click', () => {
 
                         var personInfoForm = myApp.formToData('#personInfoForm');
                         var sucoInfoForm = myApp.formToData('#sucoInfoForm');
-                        attributes['X'] = this.pointGraphic.geometry.longitude;
-                        attributes['Y'] = this.pointGraphic.geometry.latitude;
-                        attributes['TinhTrang'] = 1;
-                        attributes['Phone'] = personInfoForm.phone;
-                        attributes['HoTen'] = personInfoForm.name;
-                        attributes['Email'] = personInfoForm.email;
-                        attributes['created_date'] = new Date().getTime();
-                        attributes['MoTa'] = sucoInfoForm.mota;
-                        attributes['LoaiSuCo'] = sucoInfoForm.loaisuco;
-                        attributes['ThoiGianNguoiDanPhanAnh'] = new Date().getTime();
+                        attributes['TOADO_X'] = this.pointGraphic.geometry.x;
+                        attributes['TOADO_Y'] = this.pointGraphic.geometry.y;
+                        attributes['TRANGTHAI'] = 3;
+                        attributes['SODIENTHOAI'] = personInfoForm.phone;
+                        attributes['NGUOICAPNHAT'] = personInfoForm.name;
+                        attributes['NGAYCAPNHAT'] = new Date().getTime();
+                        attributes['NGUYENNHAN'] = sucoInfoForm.nguyennhan;
+                        attributes['LOAISUCO'] = sucoInfoForm.loaisuco;
+                        attributes['VITRI'] = sucoInfoForm.diachi;
+                        attributes['HINHTHUCPHATHIEN '] = 0;
 
-                        // for (let attribute in attributes) {
-                        //     console.log(attributes[attribute]);
-                        //     if (attributes[attribute] == '') {
-                        //         myApp.addNotification({
-                        //             title: 'Thông báo',
-                        //             message: 'Phải chưa điền thông tin: ' + attribute,
-                        //         });
-                        //         return;
-                        //     }
-                        // }
                         this.pointGraphic.attributes = attributes;
                         this.layerSuco.applyEdits({
                             addFeatures: [this.pointGraphic]

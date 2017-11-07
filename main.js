@@ -72,7 +72,7 @@ require([
         }
         const initBaseMap = () => {
             map = new Map({
-                basemap: "osm",
+                basemap: "streets",
 
             });
 
@@ -95,15 +95,24 @@ require([
             content: [{
                 type: "fields",
                 fieldInfos: [{
-                    fieldName: "HoTen"
+                    fieldName: "VITRI"
                 }, {
-                    fieldName: "Email",
+                    fieldName: "NGUYENNHAN",
                 }, {
-                    fieldName: "Phone"
+                    fieldName: "MAQUAN"
                 }, {
-                    fieldName: "LoaiSuCo"
+                    fieldName: "HINHTHUCPHATHIEN"
                 }, {
-                    fieldName: "MoTa"
+                    fieldName: "LOAISUCO"
+                },
+                {
+                    fieldName: "NGAYCAPNHAT"
+                },
+                {
+                    fieldName: "SODIENTHOAI"
+                },
+                {
+                    fieldName: "NGUOICAPNHAT"
                 }]
             }]
         }
