@@ -72,7 +72,7 @@ require([
         }
         const initBaseMap = () => {
             map = new Map({
-                basemap: "streets",
+                basemap: "osm",
 
             });
 
