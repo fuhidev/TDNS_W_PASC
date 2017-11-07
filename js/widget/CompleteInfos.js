@@ -24,19 +24,6 @@ define([
                     addSuco.style.display = 'inline-grid';
                 })
                 myApp.onPageInit('*', () => {
-                    var domainLoaiSuCo = this.layerSuco.fields.find(f=>{
-                        return f.name == 'LOAISUCO'
-                    }).domain.codedValues;
-                    var select = document.getElementById('loaisuco');
-                    for (const domain of domainLoaiSuCo) {
-                        var option = domConstruct.create('option', {
-                            value: domain.code,
-                            innerHTML: domain.name
-                        });
-                        select.appendChild(option);
-                    }
-                    
-                   
                     addSuco.style.display = 'none';
                     // var input = document.getElementById('fileInput');
                     var div = document.getElementById('form-attachment');
@@ -79,6 +66,11 @@ define([
                                                 title: 'Thông báo',
                                                 message: 'Cảm ơn bạn đã phản ánh tình trạng sự cố',
                                             });
+                                            if (this.pointGraphic) {
+                                                this.graphicsLayer.graphics.remove(this.pointGraphic);
+                                                this.pointGraphic = null;
+                                                this.view.popup.visible = false;
+                                            }
                                         }
                                     })
                                 }

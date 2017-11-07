@@ -15,10 +15,12 @@ require([
     "esri/widgets/Popup",
     "js/widget/CompleteInfos",
     "js/config",
+    "dojo/dom-construct",
     "dojo/domReady!"
 ],
     function (on, Map, MapView, Graphic, GraphicsLayer, MapImageLayer,
-        Locate, Point, FeatureLayer, SimpleMarkerSymbol, Popup, CompleteInfos, mapconfigs
+        Locate, Point, FeatureLayer, SimpleMarkerSymbol, Popup, CompleteInfos, mapconfigs,
+        domConstruct
     ) {
         // Initialize your app
         myApp = new Framework7();
@@ -90,31 +92,50 @@ require([
         });
         view.ui.remove('zoom');
         var url = mapconfigs.layers[0].url;
+        var displayFields = [
+            {
+                fieldName: 'VITRI',
+                label: 'Địa chỉ'
+            },
+            {
+                fieldName: 'NGUYENNHAN',
+                label: 'Nguyên nhân'
+            },
+            {
+                fieldName: 'NGAYCAPNHAT',
+                label: 'Ngày cập nhật'
+            },
+            {
+                fieldName: 'LOAISUCO',
+                label: 'Loại rò rỉ'
+            }
+        ];
+
+        var table = domConstruct.create('table', {
+            class: "table",
+        });
+        var tbody = domConstruct.create('tbody');
+        table.appendChild(tbody);
+        for (const field of displayFields) {
+            let tr = domConstruct.create('tr');
+            tbody.appendChild(tr);
+            var td1 = domConstruct.create('td', {
+                innerHTML: field.label,
+                class: 'label'
+            });
+            tr.appendChild(td1);
+
+            var td2 = domConstruct.create('td', {
+                innerHTML: `{` + field.fieldName + `}`,
+            });
+            if (field.fieldName == 'NGAYCAPNHAT')
+                td2.innerHTML = `{${field.fieldName}:${'DateFormat'}}`;
+            tr.appendChild(td2);
+        }
+        var content = table.outerHTML;
         var template = { // autocasts as new PopupTemplate()
             title: "Sự cố",
-            content: [{
-                type: "fields",
-                fieldInfos: [{
-                    fieldName: "VITRI"
-                }, {
-                    fieldName: "NGUYENNHAN",
-                }, {
-                    fieldName: "MAQUAN"
-                }, {
-                    fieldName: "HINHTHUCPHATHIEN"
-                }, {
-                    fieldName: "LOAISUCO"
-                },
-                {
-                    fieldName: "NGAYCAPNHAT"
-                },
-                {
-                    fieldName: "SODIENTHOAI"
-                },
-                {
-                    fieldName: "NGUOICAPNHAT"
-                }]
-            }]
+            content: content
         }
         var layerSuco = new FeatureLayer(url,
             {
@@ -136,7 +157,7 @@ require([
         view.ui.add(locateBtn, {
             position: "top-left"
         });
-        view.on('click',evt=>{
+        view.on('click', evt => {
             view.popup.dockEnabled = false;
         })
         var layer = new GraphicsLayer();
@@ -163,6 +184,7 @@ require([
                     text: 'Chọn vị trí',
                     onClick: function () {
                         on.once(view, 'click', evt => {
+                            evt.stopPropagation();
                             // mainView.router.loadContent('form.html');
                             var coords = evt.mapPoint;
 

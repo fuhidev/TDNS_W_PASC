@@ -22,3 +22,20 @@ img.lazy{
 i.fa.fa-map-marker{
   font-size: 35px;
 }
+table, tr, td {
+  padding-left: 0;
+  background:white;
+  font-family: 'Open Sans', sans-serif;
+  border:1px solid rgba(109, 58, 23, 0.69);
+  color: black;
+  font-weight: bold
+}
+.esri-widget table tr td{
+  padding: .4em .7em;
+}
+.esri-widget table tr td.label{
+  width: 29%;
+}
+.esri-popup--content-visible .esri-popup__content {
+  margin: 0 10px;
+}
