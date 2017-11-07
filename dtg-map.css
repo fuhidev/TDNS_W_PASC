@@ -31,7 +31,7 @@ table, tr, td {
   font-weight: bold
 }
 .esri-widget table tr td{
-  padding: .4em .7em;
+  padding: .35em .7em;
 }
 .esri-widget table tr td.label{
   width: 30%;
