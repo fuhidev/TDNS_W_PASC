@@ -34,7 +34,7 @@ table, tr, td {
   padding: .4em .7em;
 }
 .esri-widget table tr td.label{
-  width: 29%;
+  width: 30%;
 }
 .esri-popup--content-visible .esri-popup__content {
   margin: 0 10px;
