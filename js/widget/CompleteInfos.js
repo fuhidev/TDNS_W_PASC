@@ -55,7 +55,7 @@ define([
                                 }
                                 var objectId = result.addFeatureResults[0].objectId;
                                 let attachmentForm = document.getElementById('attachment-data');
-                                var url = this.url + '/' + objectId + "/addAttachment";
+                                var url = this.layerSuco.url + '/0/' + objectId + "/addAttachment";
                                 if (attachmentForm) {
                                     esriRequest(url, {
                                         responseType: 'json',
