@@ -104,10 +104,6 @@ require([
             {
                 fieldName: 'NGAYCAPNHAT',
                 label: 'Ngày cập nhật'
-            },
-            {
-                fieldName: 'LOAISUCO',
-                label: 'Loại rò rỉ'
             }
         ];
 

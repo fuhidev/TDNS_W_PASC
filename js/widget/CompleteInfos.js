@@ -30,17 +30,23 @@ define([
                     div.appendChild(this.form);
 
                     $$('.form-to-data').on('click', () => {
-
+                        
                         var personInfoForm = myApp.formToData('#personInfoForm');
                         var sucoInfoForm = myApp.formToData('#sucoInfoForm');
+                        let attachmentForm = document.getElementById('attachment-data');
+                        if(sucoInfoForm.diachi == '' || personInfoForm.phone == '' || attachmentForm.firstChild.files.length == 0){
+                            myApp.addNotification({
+                                title: 'Thông báo',
+                                message: 'Cần điền đầy đủ thông tin',
+                            });
+                            return;
+                        } 
                         attributes['TOADO_X'] = this.pointGraphic.geometry.x;
                         attributes['TOADO_Y'] = this.pointGraphic.geometry.y;
                         attributes['TRANGTHAI'] = 3;
                         attributes['SODIENTHOAI'] = personInfoForm.phone;
                         attributes['NGUOICAPNHAT'] = personInfoForm.name;
                         attributes['NGAYCAPNHAT'] = new Date().getTime();
-                        attributes['NGUYENNHAN'] = sucoInfoForm.nguyennhan;
-                        attributes['LOAISUCO'] = sucoInfoForm.loaisuco;
                         attributes['VITRI'] = sucoInfoForm.diachi;
                         attributes['HINHTHUCPHATHIEN '] = 0;
 
@@ -54,7 +60,7 @@ define([
                                     this.pointGraphic = null;
                                 }
                                 var objectId = result.addFeatureResults[0].objectId;
-                                let attachmentForm = document.getElementById('attachment-data');
+                                
                                 var url = this.layerSuco.url + '/0/' + objectId + "/addAttachment";
                                 if (attachmentForm) {
                                     esriRequest(url, {
