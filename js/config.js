@@ -38,18 +38,7 @@ define([
         layers: [{
             title: 'Sự cố',
             id: "SuCo",
-            url: "http://112.78.4.175:6080/arcgis/rest/services/ChuyenDeGISTruyenDan/FeatureServer/0",
-            permissions: [{
-                role: 1,//sở thông tin truyền thông
-                edit: true,
-                create: true,
-                delete: true
-            }, {
-                role: 2,//doanh nghiệp
-                edit: true,
-                create: true,
-                delete: true
-            }]
+            url: "https://sawagis.vn/arcgis/rest/services/TruyenDan/MapServicesTruyenDan/FeatureServer/0",
         }],
         zoom: 12, // Sets the zoom level based on level of detail (LOD)
         center: [106.6843694, 11.158752270428375]

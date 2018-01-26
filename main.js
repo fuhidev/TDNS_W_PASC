@@ -94,6 +94,10 @@ require([
         var url = mapconfigs.layers[0].url;
         var displayFields = [
             {
+                fieldName: 'IDSUCO',
+                label: 'Mã sự cố'
+            },
+            {
                 fieldName: 'VITRI',
                 label: 'Địa chỉ'
             },

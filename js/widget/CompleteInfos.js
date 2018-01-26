@@ -28,19 +28,18 @@ define([
                     // var input = document.getElementById('fileInput');
                     var div = document.getElementById('form-attachment');
                     div.appendChild(this.form);
-
                     $$('.form-to-data').on('click', () => {
-                        
+
                         var personInfoForm = myApp.formToData('#personInfoForm');
                         var sucoInfoForm = myApp.formToData('#sucoInfoForm');
                         let attachmentForm = document.getElementById('attachment-data');
-                        if(sucoInfoForm.diachi == '' || personInfoForm.phone == '' || attachmentForm.firstChild.files.length == 0){
+                        if (sucoInfoForm.diachi == '' || personInfoForm.phone == '' || attachmentForm.firstChild.files.length == 0) {
                             myApp.addNotification({
                                 title: 'Thông báo',
                                 message: 'Cần điền đầy đủ thông tin',
                             });
                             return;
-                        } 
+                        }
                         attributes['TOADO_X'] = this.pointGraphic.geometry.x;
                         attributes['TOADO_Y'] = this.pointGraphic.geometry.y;
                         attributes['TRANGTHAI'] = 3;
@@ -49,7 +48,6 @@ define([
                         attributes['NGAYCAPNHAT'] = new Date().getTime();
                         attributes['VITRI'] = sucoInfoForm.diachi;
                         attributes['HINHTHUCPHATHIEN '] = 0;
-
                         this.pointGraphic.attributes = attributes;
                         this.layerSuco.applyEdits({
                             addFeatures: [this.pointGraphic]
@@ -57,10 +55,34 @@ define([
                             if (result.addFeatureResults.length > 0) {
                                 if (this.pointGraphic) {
                                     this.graphicsLayer.graphics.remove(this.pointGraphic);
-                                    this.pointGraphic = null;
                                 }
                                 var objectId = result.addFeatureResults[0].objectId;
-                                
+                                var nowdate = new Date();
+                                var thang = nowdate.getMonth() + 1;
+                                thang = thang >= 10 ? thang : '0' + thang;
+                                var currentDate = nowdate.getDate() + '-' + thang + '-' + nowdate.getFullYear();
+                                var nam = nowdate.getFullYear();
+                                var date = nowdate.getDate();
+                                const queryParams = this.layerSuco.createQuery();
+                                queryParams.where = `NGAYCAPNHAT >= date '` + nam + '-' + thang + '-' + date + `'`;
+                                var sttID;
+                                this.layerSuco.queryFeatures(queryParams).then((results) => {
+                                    sttID = results.features.length;
+                                    sttID = sttID < 10 ? '0' + sttID : sttID;
+                                    attributes['IDSUCO'] = sttID + '-' + currentDate;
+                                    this.pointGraphic.attributes = {
+                                        "OBJECTID": objectId,
+                                        "IDSUCO": sttID + '-' + currentDate,
+                                    }
+                                    this.layerSuco.applyEdits({
+                                        updateFeatures: [this.pointGraphic]
+                                    }).then(result => {
+                                        if (this.pointGraphic) {
+                                            this.graphicsLayer.graphics.remove(this.pointGraphic);
+                                            this.pointGraphic = null;
+                                        }
+                                    });
+                                });
                                 var url = this.layerSuco.url + '/0/' + objectId + "/addAttachment";
                                 if (attachmentForm) {
                                     esriRequest(url, {
@@ -100,8 +122,8 @@ define([
                     latitude: coords.latitude,
                 });
                 var markerSymbol = new SimpleMarkerSymbol({
-                    color: [226, 119, 40],
-                    style: 'diamond'
+                    color: [255, 128, 0],
+                    style: 'circle',
                 });
 
                 var completeInfos = {
@@ -139,12 +161,12 @@ define([
                 hideField.name = 'f';
                 hideField.value = 'json';
                 this.form.appendChild(hideField);
-                mainView.router.load({ url: '/form.html' });
+                mainView.router.load({ url: 'form.html' });
 
 
                 this.view.popup.on("trigger-action", event => {
                     if (event.action.id === "editInfo") {
-                        mainView.router.load({ url: '/form.html' });
+                        mainView.router.load({ url: 'form.html' });
                     }
                     if (event.action.id === "deleteObj") {
                         this.graphicsLayer.graphics.remove(this.pointGraphic);
