@@ -6,11 +6,10 @@ define([
     "esri/geometry/Point",
     "esri/symbols/SimpleMarkerSymbol",
     "esri/request",
-    "js/widget/Location"
 ], function (domConstruct,
     Graphic, GraphicsLayer, FeatureLayer, Point,
     SimpleMarkerSymbol,
-    esriRequest, Location) {
+    esriRequest) {
         return class {
             constructor(view, graphicsLayer, layerSuco) {
                 this.view = view;
@@ -19,7 +18,6 @@ define([
                 var attributes = {};
                 this.layerSuco = layerSuco;
                 var addSuco = document.getElementById('addSuCo');
-                var location = new Location(this.view);
                 myApp.onPageBack('*', () => {
                     addSuco.style.display = 'inline-grid';
                 })
