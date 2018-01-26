@@ -44,6 +44,7 @@ define([
                         attributes['SODIENTHOAI'] = personInfoForm.phone;
                         attributes['NGUOICAPNHAT'] = personInfoForm.name;
                         attributes['NGAYCAPNHAT'] = new Date().getTime();
+                        attributes['NGAYTHONGBAO'] = new Date().getTime();
                         attributes['VITRI'] = sucoInfoForm.diachi;
                         attributes['HINHTHUCPHATHIEN '] = 0;
                         this.pointGraphic.attributes = attributes;
