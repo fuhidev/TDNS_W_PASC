@@ -14,12 +14,14 @@ require([
     "esri/symbols/SimpleMarkerSymbol",
     "esri/widgets/Popup",
     "js/widget/CompleteInfos",
+    "esri/widgets/Legend",
+    "esri/widgets/Expand",
     "js/config",
     "dojo/dom-construct",
     "dojo/domReady!"
 ],
     function (on, Map, MapView, Graphic, GraphicsLayer, MapImageLayer,
-        Locate, Point, FeatureLayer, SimpleMarkerSymbol, Popup, CompleteInfos, mapconfigs,
+        Locate, Point, FeatureLayer, SimpleMarkerSymbol, Popup, CompleteInfos, Legend, Expand, mapconfigs,
         domConstruct
     ) {
         // Initialize your app
@@ -85,7 +87,7 @@ require([
         view = new MapView({
             map: map,
             container: "viewDiv",
-            zoom: 12, // Sets the zoom level based on level of detail (LOD)
+            zoom: 13, // Sets the zoom level based on level of detail (LOD)
             center: [106.6586167, 10.775109],
             spatialReference: 102100,
 
@@ -143,9 +145,11 @@ require([
                 outFields: ["*"],
                 popupTemplate: template
             });
+           
 
 
         map.add(layerSuco);
+
         var locateBtn = new Locate({
             viewModel: { // autocasts as new LocateViewModel()
                 view: view,  // assigns the locate widget to a view
@@ -163,6 +167,37 @@ require([
         var layer = new GraphicsLayer();
         map.add(layer);
         var completeInfos = new CompleteInfos(view, layer, layerSuco);
+        view.whenLayerView(layerSuco)
+            .then(function (layerView) {
+                var renderer = layerSuco.renderer;
+                renderer.defaultSymbol.width = 20;
+                renderer.defaultSymbol.height = 15;
+                var uniqueValueInfos = renderer.uniqueValueInfos;
+                for (const uniqueValueInfo in uniqueValueInfos) {
+                    uniqueValueInfos[uniqueValueInfo].symbol.width = 15;
+                    uniqueValueInfos[uniqueValueInfo].symbol.height = 15;
+                }
+                renderer.uniqueValueInfos = uniqueValueInfos;
+                layerSuco.renderer = renderer;
+                var legend = new Legend({
+                    view: view,
+                    layerInfos: [{
+                        layer: layerSuco,
+                        title: "Điểm sự cố"
+                    }]
+                });
+                var legendExpand = new Expand({
+                    expandIconClass: "esri-icon-menu",
+                    expandTooltip:"Chú thích",
+                    view: view,
+                    content: legend
+                });
+                view.ui.add(legendExpand, "top-right");
+                
+            })
+            .otherwise(function (error) {
+            });
+
         // - Two groups
         $$('.ac-3').on('click', function () {
             var option = [
