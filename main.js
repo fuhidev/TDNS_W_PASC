@@ -1,6 +1,6 @@
 var myApp, mainView, $$;
 var view;
-var widthSymbol = 20,heightSymbol = 20;
+var widthSymbol = 17,heightSymbol = 17;
 
 require([
     "dojo/on",
