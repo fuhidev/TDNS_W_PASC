@@ -66,7 +66,16 @@ define([
                                 queryParams.where = `NGAYCAPNHAT >= date '` + nam + '-' + thang + '-' + date + `'`;
                                 var sttID;
                                 this.layerSuco.queryFeatures(queryParams).then((results) => {
-                                    sttID = results.features.length;
+                                    sttID = 0;
+                                    var id_tmp = 0;
+                                    for (const item of results.features) {
+                                        var IDSUCO = item.attributes.IDSUCO||"";
+                                        
+                                        id_tmp = parseInt(IDSUCO.split("-")[0]) || 0;
+                                        if (id_tmp > sttID)
+                                            sttID = id_tmp;
+                                    }
+                                    sttID++;
                                     sttID = sttID < 10 ? '0' + sttID : sttID;
                                     attributes['IDSUCO'] = sttID + '-' + currentDate;
                                     this.pointGraphic.attributes = {
