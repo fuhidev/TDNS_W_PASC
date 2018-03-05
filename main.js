@@ -1,5 +1,7 @@
 var myApp, mainView, $$;
 var view;
+var widthSymbol = 20,heightSymbol = 20;
+
 require([
     "dojo/on",
 
@@ -170,12 +172,12 @@ require([
         view.whenLayerView(layerSuco)
             .then(function (layerView) {
                 var renderer = layerSuco.renderer;
-                renderer.defaultSymbol.width = 20;
-                renderer.defaultSymbol.height = 15;
+                renderer.defaultSymbol.width = widthSymbol;
+                renderer.defaultSymbol.height = heightSymbol;
                 var uniqueValueInfos = renderer.uniqueValueInfos;
                 for (const uniqueValueInfo in uniqueValueInfos) {
-                    uniqueValueInfos[uniqueValueInfo].symbol.width = 15;
-                    uniqueValueInfos[uniqueValueInfo].symbol.height = 15;
+                    uniqueValueInfos[uniqueValueInfo].symbol.width = widthSymbol;
+                    uniqueValueInfos[uniqueValueInfo].symbol.height = heightSymbol;
                 }
                 renderer.uniqueValueInfos = uniqueValueInfos;
                 layerSuco.renderer = renderer;
