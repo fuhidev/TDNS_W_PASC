@@ -46,7 +46,7 @@ define([
                         attributes['NGAYCAPNHAT'] = new Date().getTime();
                         attributes['NGAYTHONGBAO'] = new Date().getTime();
                         attributes['VITRI'] = sucoInfoForm.diachi;
-                        attributes['HINHTHUCPHATHIEN '] = 0;
+                        attributes['HINHTHUCPHATHIEN'] = 0;
                         this.pointGraphic.attributes = attributes;
                         this.layerSuco.applyEdits({
                             addFeatures: [this.pointGraphic]
