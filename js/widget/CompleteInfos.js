@@ -46,8 +46,10 @@ define([
                         attributes['NGAYCAPNHAT'] = new Date().getTime();
                         attributes['NGAYTHONGBAO'] = new Date().getTime();
                         attributes['VITRI'] = sucoInfoForm.diachi;
+                        attributes['GhiChu'] = sucoInfoForm.ghichu;
                         attributes['HINHTHUCPHATHIEN'] = 0;
                         this.pointGraphic.attributes = attributes;
+                        myApp.showIndicator();
                         this.layerSuco.applyEdits({
                             addFeatures: [this.pointGraphic]
                         }).then(result => {
@@ -108,12 +110,15 @@ define([
                                                 this.view.popup.visible = false;
                                             }
                                         }
+                                        myApp.views[0].router.back();
                                     })
+                                    .always(_=>myApp.hideIndicator())
                                 }
 
 
                             }
-                        });
+                        })
+                        .always(_=>myApp.hideIndicator());
                     });
                 });
 

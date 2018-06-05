@@ -112,6 +112,10 @@ require([
             {
                 fieldName: 'NGAYCAPNHAT',
                 label: 'Ngày cập nhật'
+            },
+            {
+                fieldName: 'GhiChu',
+                label: 'Ghi chú'
             }
         ];
 
