@@ -48,7 +48,7 @@ define([
                     }
                     attributes['TOADO_X'] = this.pointGraphic.geometry.x;
                     attributes['TOADO_Y'] = this.pointGraphic.geometry.y;
-                    attributes['TRANGTHAI'] = 3;
+                    attributes['TRANGTHAI'] = 0;
                     attributes['SODIENTHOAI'] = personInfoForm.phone;
                     attributes['NGUOICAPNHAT'] = personInfoForm.name;
                     attributes['NGAYCAPNHAT'] = new Date().getTime();
