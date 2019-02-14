@@ -16,7 +16,7 @@ define([
             this.view = view;
             this.graphicsLayer = graphicsLayer;
             this.locator = new Locator({
-                url:"http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
+                url: "http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"
             });
             var form;
             var attributes = {};
@@ -66,31 +66,14 @@ define([
                                     this.graphicsLayer.graphics.remove(this.pointGraphic);
                                 }
                                 var objectId = result.addFeatureResults[0].objectId;
-                                var nowdate = new Date();
-                                var thang = nowdate.getMonth() + 1;
-                                thang = thang >= 10 ? thang : '0' + thang;
-                                var currentDate = nowdate.getDate() + '-' + thang + '-' + nowdate.getFullYear();
-                                var nam = nowdate.getFullYear();
-                                var date = nowdate.getDate();
-                                const queryParams = this.layerSuco.createQuery();
-                                queryParams.where = `NGAYCAPNHAT >= date '` + nam + '-' + thang + '-' + date + `'`;
-                                var sttID;
-                                this.layerSuco.queryFeatures(queryParams).then((results) => {
-                                    sttID = 0;
-                                    var id_tmp = 0;
-                                    for (const item of results.features) {
-                                        var IDSUCO = item.attributes.IDSUCO || "";
-
-                                        id_tmp = parseInt(IDSUCO.split("-")[0]) || 0;
-                                        if (id_tmp > sttID)
-                                            sttID = id_tmp;
-                                    }
-                                    sttID++;
-                                    sttID = sttID < 10 ? '0' + sttID : sttID;
-                                    attributes['IDSUCO'] = sttID + '-' + currentDate;
+                                esriRequest('/tdns/tiepnhansuco/generateidsuco', {
+                                    responseType: 'json',
+                                    method: 'post'
+                                }).then(response => {
+                                    var idSuCo = response.data;
                                     this.pointGraphic.attributes = {
                                         "OBJECTID": objectId,
-                                        "IDSUCO": sttID + '-' + currentDate,
+                                        "IDSUCO": idSuCo
                                     }
                                     this.layerSuco.applyEdits({
                                         updateFeatures: [this.pointGraphic]
@@ -101,6 +84,7 @@ define([
                                         }
                                     });
                                 });
+
                                 var url = this.layerSuco.url + '/0/' + objectId + "/addAttachment";
                                 if (attachmentForm) {
                                     esriRequest(url, {
@@ -132,13 +116,13 @@ define([
 
         }
 
-        capNhatDiaChi(point){
+        capNhatDiaChi(point) {
             this.locator.locationToAddress(point)
-            .then((result)=>{
-                myApp.formFromData('#sucoInfoForm',{
-                    diachi:result.attributes.LongLabel
+                .then((result) => {
+                    myApp.formFromData('#sucoInfoForm', {
+                        diachi: result.attributes.LongLabel
+                    });
                 });
-            });
         }
 
         addGraphics(coords) {
